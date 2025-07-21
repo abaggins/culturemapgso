@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Culture Map: A Visual Guide</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 150px;
+            max-height: 200px;
+        }
+        .radar-chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 400px;
+            max-height: 50vh;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 200px;
+            }
+            .radar-chart-container {
+                height: 500px;
+            }
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800">
+
+    <header class="bg-white shadow-md">
+        <div class="container mx-auto px-6 py-8 text-center">
+            <h1 class="text-4xl md:text-5xl font-bold text-[#003f5c]">Navigating the Global Workplace</h1>
+            <p class="mt-4 text-lg text-gray-600">A Visual Guide to Erin Meyer's <span class="font-semibold">Culture Map</span></p>
+        </div>
+    </header>
+
+    <main class="container mx-auto px-6 py-12">
+        <section class="text-center max-w-3xl mx-auto">
+            <h2 class="text-3xl font-bold text-[#2f4b7c]">Understanding Cultural Relativity</h2>
+            <p class="mt-4 text-gray-700 leading-relaxed">
+                In our interconnected world, effective collaboration requires understanding that culture profoundly shapes behavior. Erin Meyer's 8-scale model provides a framework for decoding cultural differences. It's not about stereotyping, but about understanding a culture's position on a spectrum relative to others. This guide visualizes these scales to help you navigate cross-cultural interactions with greater awareness and success.
+            </p>
+        </section>
+
+        <section id="interactive-comparison" class="mt-16 bg-white rounded-lg shadow-lg p-6 md:p-8">
+            <h2 class="text-3xl font-bold text-center text-[#2f4b7c]">Compare Cultures Interactively</h2>
+            <p class="text-center mt-2 text-gray-600">Select two countries to see how they compare across the 8 scales.</p>
+            <div class="flex flex-col md:flex-row justify-center items-center gap-4 mt-8">
+                <div class="w-full md:w-auto">
+                    <label for="country1" class="font-semibold text-gray-700">Country 1:</label>
+                    <select id="country1" class="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-[#ff7c43] focus:border-[#ff7c43]">
+                        <option>USA</option>
+                        <option>Japan</option>
+                        <option>Germany</option>
+                        <option>France</option>
+                        <option>India</option>
+                        <option>Nigeria</option>
+                        <option>Brazil</option>
+                        <option>UK</option>
+                    </select>
+                </div>
+                 <div class="font-bold text-2xl text-gray-400">vs</div>
+                <div class="w-full md:w-auto">
+                     <label for="country2" class="font-semibold text-gray-700">Country 2:</label>
+                    <select id="country2" class="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-[#ff7c43] focus:border-[#ff7c43]">
+                        <option>Germany</option>
+                        <option>USA</option>
+                        <option>Japan</option>
+                        <option>France</option>
+                        <option>India</option>
+                        <option>Nigeria</option>
+                        <option>Brazil</option>
+                        <option>UK</option>
+                    </select>
+                </div>
+            </div>
+             <div class="radar-chart-container mt-8">
+                <canvas id="radarChart"></canvas>
+            </div>
+        </section>
+
+        <section id="scales" class="mt-16">
+            <h2 class="text-3xl font-bold text-center text-[#2f4b7c] mb-12">The 8 Scales of The Culture Map</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                
+                <div class="bg-white rounded-lg shadow-md p-6 flex flex-col">
+                    <h3 class="text-2xl font-bold text-[#665191]">1. Communicating</h3>
+                    <p class="mt-2 text-gray-600 flex-grow">This scale measures how explicitly messages are conveyed. Low-context cultures value direct, simple, and clear communication, while high-context cultures rely on shared context, subtext, and non-verbal cues.</p>
+                    <div class="chart-container mt-4">
+                        <canvas id="communicatingChart"></canvas>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-lg shadow-md p-6 flex flex-col">
+                    <h3 class="text-2xl font-bold text-[#665191]">2. Evaluating</h3>
+                    <p class="mt-2 text-gray-600 flex-grow">This scale shows how negative feedback is delivered. Some cultures are direct and frank, while others are indirect, softening criticism to preserve harmony.</p>
+                    <div class="chart-container mt-4">
+                        <canvas id="evaluatingChart"></canvas>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-lg shadow-md p-6 flex flex-col">
+                    <h3 class="text-2xl font-bold text-[#a05195]">3. Persuading</h3>
+                    <p class="mt-2 text-gray-600 flex-grow">This scale contrasts deductive (principles-first) and inductive (applications-first) reasoning. Principles-first cultures explain the 'why' before the 'how', while applications-first cultures focus on practical examples first.</p>
+                    <div class="chart-container mt-4">
+                        <canvas id="persuadingChart"></canvas>
+                    </div>
+                </div>
+                
+                <div class="bg-white rounded-lg shadow-md p-6 flex flex-col">
+                    <h3 class="text-2xl font-bold text-[#a05195]">4. Leading</h3>
+                    <p class="mt-2 text-gray-600 flex-grow">This scale reflects the ideal distance between a boss and subordinate. Egalitarian cultures minimize hierarchy, while hierarchical cultures emphasize status and respect for authority.</p>
+                    <div class="chart-container mt-4">
+                        <canvas id="leadingChart"></canvas>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-lg shadow-md p-6 flex flex-col">
+                    <h3 class="text-2xl font-bold text-[#d45087]">5. Deciding</h3>
+                    <p class="mt-2 text-gray-600 flex-grow">This scale measures how decisions are made. Consensual cultures involve everyone to reach a group agreement, whereas top-down cultures empower leaders to make decisions unilaterally.</p>
+                    <div class="chart-container mt-4">
+                        <canvas id="decidingChart"></canvas>
+                    </div>
+                </div>
+                
+                <div class="bg-white rounded-lg shadow-md p-6 flex flex-col">
+                    <h3 class="text-2xl font-bold text-[#d45087]">6. Trusting</h3>
+                    <p class="mt-2 text-gray-600 flex-grow">This scale differentiates between task-based and relationship-based trust. One is built on reliability and performance, the other on personal connection and shared experience.</p>
+                    <div class="chart-container mt-4">
+                        <canvas id="trustingChart"></canvas>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-lg shadow-md p-6 flex flex-col">
+                    <h3 class="text-2xl font-bold text-[#f95d6a]">7. Disagreeing</h3>
+                    <p class="mt-2 text-gray-600 flex-grow">This scale shows a culture's tolerance for open disagreement. Confrontational cultures see debate as positive, while others avoid it to maintain group harmony.</p>
+                    <div class="chart-container mt-4">
+                        <canvas id="disagreeingChart"></canvas>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-lg shadow-md p-6 flex flex-col">
+                    <h3 class="text-2xl font-bold text-[#f95d6a]">8. Scheduling</h3>
+                    <p class="mt-2 text-gray-600 flex-grow">This scale measures attitudes towards time. Linear-time cultures focus on deadlines and sequential tasks, while flexible-time cultures are more fluid, adaptable, and comfortable with multitasking.</p>
+                    <div class="chart-container mt-4">
+                        <canvas id="schedulingChart"></canvas>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+        
+    </main>
+
+    <footer class="bg-white mt-16">
+        <div class="container mx-auto px-6 py-8 text-center text-gray-600">
+            <p>Infographic created using Chart.js and Tailwind CSS. Based on the framework by Erin Meyer.</p>
+            <p class="text-sm mt-2">This is a visual interpretation and not an exhaustive or definitive representation of any culture.</p>
+        </div>
+    </footer>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', () => {
+
+        const cultureData = {
+            'USA':                 { values: [-3, -2, -3, -2,  2, -3, -1, -3], color: '#ff7c43' },
+            'Japan':               { values: [ 3,  3,  2,  2, -3,  3,  3,  2], color: '#a05195' },
+            'Germany':             { values: [-2, -3,  3, -1, -2, -2, -2, -3], color: '#003f5c' },
+            'France':              { values: [ 2, -3,  3,  2,  1,  2, -3,  1], color: '#665191' },
+            'India':               { values: [ 2,  2,  1,  3,  2,  3,  2,  3], color: '#d45087' },
+            'Nigeria':             { values: [ 3,  1,  1,  3,  3,  3,  1,  3], color: '#f95d6a' },
+            'Brazil':              { values: [ 2,  2, -2,  2,  1,  3,  1,  2], color: '#2f4b7c' },
+            'UK':                  { values: [-2, -1, -2, -2,  1, -2, -1, -2], color: '#ffa600' }
+        };
+
+        const scaleLabels = [
+            'Communicating', 'Evaluating', 'Persuading', 'Leading', 
+            'Deciding', 'Trusting', 'Disagreeing', 'Scheduling'
+        ];
+        
+        const spectrumLabels = [
+            ['Low-Context', 'High-Context'],
+            ['Direct Feedback', 'Indirect Feedback'],
+            ['Applications-First', 'Principles-First'],
+            ['Egalitarian', 'Hierarchical'],
+            ['Consensual', 'Top-Down'],
+            ['Task-Based', 'Relationship-Based'],
+            ['Confrontational', 'Avoids Confrontation'],
+            ['Linear-Time', 'Flexible-Time']
+        ];
+        
+        const colorPalette = ['#003f5c', '#2f4b7c', '#665191', '#a05195', '#d45087', '#f95d6a', '#ff7c43', '#ffa600'];
+
+        const wrapLabel = (str, maxWidth) => {
+            if (str.length <= maxWidth) {
+                return str;
+            }
+            const words = str.split(' ');
+            let lines = [];
+            let currentLine = words[0];
+            for (let i = 1; i < words.length; i++) {
+                if ((currentLine + ' ' + words[i]).length > maxWidth) {
+                    lines.push(currentLine);
+                    currentLine = words[i];
+                } else {
+                    currentLine += ' ' + words[i];
+                }
+            }
+            lines.push(currentLine);
+            return lines;
+        };
+        
+        const baseTooltipConfig = {
+            callbacks: {
+                title: function(tooltipItems) {
+                    const item = tooltipItems[0];
+                    let label = item.chart.data.labels[item.dataIndex];
+                    if (Array.isArray(label)) {
+                        return label.join(' ');
+                    }
+                    return label;
+                }
+            }
+        };
+
+        const createScatterPlot = (canvasId, scaleIndex) => {
+            const ctx = document.getElementById(canvasId).getContext('2d');
+            const datasets = Object.keys(cultureData).map(country => ({
+                label: country,
+                data: [{ x: cultureData[country].values[scaleIndex], y: Math.random() * 2 - 1 }],
+                backgroundColor: cultureData[country].color,
+                pointRadius: 8,
+                pointHoverRadius: 12
+            }));
+
+            new Chart(ctx, {
+                type: 'scatter',
+                data: { datasets },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: {
+                             ...baseTooltipConfig,
+                            callbacks: {
+                                label: function(context) {
+                                    return context.dataset.label || '';
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        x: {
+                            min: -3.5,
+                            max: 3.5,
+                            ticks: {
+                                stepSize: 7,
+                                callback: function(value, index, values) {
+                                    if (value === -3.5) return spectrumLabels[scaleIndex][0];
+                                    if (value === 3.5) return spectrumLabels[scaleIndex][1];
+                                    return '';
+                                },
+                                font: { weight: 'bold', size: 14 }
+                            },
+                            grid: {
+                                display: false,
+                                drawBorder: false
+                            }
+                        },
+                        y: {
+                            display: false,
+                            min: -1.5,
+                            max: 1.5
+                        }
+                    }
+                }
+            });
+        };
+
+        createScatterPlot('communicatingChart', 0);
+        createScatterPlot('evaluatingChart', 1);
+        createScatterPlot('persuadingChart', 2);
+        createScatterPlot('leadingChart', 3);
+        createScatterPlot('decidingChart', 4);
+        createScatterPlot('trustingChart', 5);
+        createScatterPlot('disagreeingChart', 6);
+        createScatterPlot('schedulingChart', 7);
+
+
+        const radarCtx = document.getElementById('radarChart').getContext('2d');
+        const radarChart = new Chart(radarCtx, {
+            type: 'radar',
+            data: {
+                labels: scaleLabels.map(label => wrapLabel(label, 16)),
+                datasets: []
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                elements: {
+                    line: {
+                        borderWidth: 3
+                    }
+                },
+                scales: {
+                    r: {
+                        angleLines: {
+                            display: true
+                        },
+                        suggestedMin: -3,
+                        suggestedMax: 3,
+                        pointLabels: {
+                            font: {
+                                size: 12,
+                                weight: 'bold'
+                            }
+                        },
+                        ticks: {
+                            display: false
+                        }
+                    }
+                },
+                plugins: {
+                    tooltip: baseTooltipConfig,
+                     legend: {
+                        position: 'top',
+                     }
+                }
+            }
+        });
+        
+        const country1Select = document.getElementById('country1');
+        const country2Select = document.getElementById('country2');
+
+        const updateRadarChart = () => {
+            const country1 = country1Select.value;
+            const country2 = country2Select.value;
+
+            radarChart.data.datasets = [
+                {
+                    label: country1,
+                    data: cultureData[country1].values,
+                    borderColor: cultureData[country1].color,
+                    backgroundColor: `${cultureData[country1].color}40`
+                },
+                {
+                    label: country2,
+                    data: cultureData[country2].values,
+                    borderColor: cultureData[country2].color,
+                    backgroundColor: `${cultureData[country2].color}40`
+                }
+            ];
+            radarChart.update();
+        };
+
+        country1Select.addEventListener('change', updateRadarChart);
+        country2Select.addEventListener('change', updateRadarChart);
+
+        country1Select.value = 'USA';
+        country2Select.value = 'Germany';
+        updateRadarChart();
+    });
+    </script>
+</body>
+</html>
